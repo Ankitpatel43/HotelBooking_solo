@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1"
-    xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
     <persistence-unit name="HotelBooking_Project">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
     	
         <properties>
             <!-- Scan for annotated classes and Hibernate mapping XML files -->
@@ -12,25 +11,24 @@
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="hibernate.use_sql_comments" value="true" />
+            <!-- Disable Bean Validation to avoid additional dependencies -->
+            <property name="javax.persistence.validation.mode" value="none" />
+            <property name="hibernate.validator.apply_to_ddl" value="false" />
+            <property name="hibernate.validator.autoregister_listeners" value="false" />
 
             <!-- SQL dialect -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" />
+        <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 
-            <!-- Connection config -->
-            <property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
-            <property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-            <property name="hibernate.connection.username" value="bunty" />
-            <property name="hibernate.connection.password" value="fdm" />
+        <!-- Connection config -->
+        <property name="hibernate.connection.driver_class" value="org.h2.Driver" />
+        <property name="hibernate.connection.url" value="jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1" />
+        <property name="hibernate.connection.username" value="sa" />
+        <property name="hibernate.connection.password" value="" />
 
             <!-- validate, create, create-drop, update -->
             <!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
 
-            <!-- Connection pooling config -->
-            <property name="hibernate.c3p0.min_size" value="2" />
-            <property name="hibernate.c3p0.max_size" value="3" />
-            <property name="hibernate.c3p0.timeout" value="300" />
-            <property name="hibernate.c3p0.max_statements" value="50" />
-            <property name="hibernate.c3p0.idle_test_period" value="3000" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
         </properties>
     </persistence-unit>
 </persistence>
