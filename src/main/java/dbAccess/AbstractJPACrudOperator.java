@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.hibernate.ejb.HibernatePersistence;
 import javax.persistence.TypedQuery;
 
 import dtos.IEntity;
 
 public abstract class AbstractJPACrudOperator<T extends IEntity, F extends JPAFilters> implements ICrudOperators<T, F> {
-	private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("HotelBooking_Project");
+    private static final EntityManagerFactory emf =
+                    new HibernatePersistence().createEntityManagerFactory("HotelBooking_Project", null);
 	private static final EntityManager em = emf.createEntityManager();
 
 	private Class<T> clz;
